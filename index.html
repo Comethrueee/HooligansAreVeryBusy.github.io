@@ -80,7 +80,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <table style="text-align:center">
+    <tr>
+        <th></th>
+        <th>底层结构</th>
+        <th>版本</th>
+        <th>线程安全(同步)效率</th>
+        <th>扩容倍数</th>
+    </tr>
+    <tr>
+        <td>ArrayList</td>
+        <td>可变数组</td>
+        <td>1.2</td>
+        <td>线程不安全，没有synchronized,<br>多线程情况下不推荐使用；效率高</td>
+        <td>无参：第一次 10倍，从第二次开始按1.5倍<br>有参：按1.5倍</td>
+    </tr>
+    <tr>
+        <td>Vector</td>
+        <td>可变数组</td>
+        <td>1.0</td>
+        <td>线程安全;<br>效率低</td>
+        <td>无参：第一次 10倍，从第二次开始按2倍<br>有参：按2倍</td>
+    </tr>
+</table>
       
     </div>
     <footer class="article-footer">

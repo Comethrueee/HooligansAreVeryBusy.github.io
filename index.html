@@ -108,7 +108,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">// 演示代码：</span><br><span class="line">ArrayList list = new ArrayList();</span><br><span class="line">for(int i=1;i&lt;=10;i++)&#123;</span><br><span class="line">    list.add(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 源码：</span><br><span class="line">// 1.新建空数组,elementData数组为我们所使用的数组</span><br><span class="line">public ArrayList() &#123;</span><br><span class="line">    this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA; //将elementData指向空数组</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 2.先确定容量是否足够，然后再把数据添加到elementData</span><br><span class="line">public boolean add(E e) &#123;</span><br><span class="line">    ensureCapacityInternal(size + 1);  // 确定容量是否够，+1是为了判断第二次扩容（步骤4）</span><br><span class="line">    elementData[size++] = e; // 把数据添加到elementData</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 3.确定所扩容量（即确定minCapacity：最小所需容量）</span><br><span class="line">private void ensureCapacityInternal(int minCapacity) &#123; //minCapacity = 1</span><br><span class="line">    if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123; //判断elementData与原始的空数组是否为同一对象，由于这里是第一次扩容，毫无疑问是同一个对象</span><br><span class="line">        minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity); //DEFAULT_CAPACITY:默认为10；这里确定minCapacity取10</span><br><span class="line">    &#125;</span><br><span class="line">    //第一次扩容minCapacity为10,往后minCapacity都为扩容前的elementData的长度+1；因为扩容后elementData指向新数组，无法执行上面代码块 </span><br><span class="line">    ensureExplicitCapacity(minCapacity); //确定是否需要扩容</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 4.确定是否需要扩容</span><br><span class="line">private void ensureExplicitCapacity(int minCapacity) &#123;  //minCapacity：10</span><br><span class="line">    modCount++; //记录集合被修改的次数，防止多个线程同时修改；若多个线程修改会抛出异常</span><br><span class="line"></span><br><span class="line">    if (minCapacity - elementData.length &gt; 0)//minCapacity和elementData容量相比，若elementData容量不够，则执行扩容算法</span><br><span class="line">        grow(minCapacity); //扩容算法</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 5.扩容算法</span><br><span class="line"> private void grow(int minCapacity) &#123; //minCapacity：10</span><br><span class="line">    int oldCapacity = elementData.length; //由于是第一次扩容，原始数组长度为0</span><br><span class="line">    int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1); //0 + 0/2=0（即1.5倍）（&gt;&gt;1：二进制算法，往右移动一位，即等于除于2）；</span><br><span class="line">    if (newCapacity - minCapacity &lt; 0) //判断是否为第一次扩容；newCapacity为elementData容量的1.5倍，在第一次扩容前，elementData的容量为0，所以newCapacity的容量比elementData容量小</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    if (newCapacity - MAX_ARRAY_SIZE &gt; 0)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity); //进行扩容；把扩容前的数据复制到扩容后的数组，这里elementData指向新数组</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><text style="color:purple">第二次扩容</text></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 演示代码：基于第一次扩容演示代码</span><br><span class="line">for(int i=11;i&lt;=20;i++)&#123;</span><br><span class="line">    list.add(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 源码</span><br><span class="line">// 1.先确定容量是否足够，然后再把数据添加到数组</span><br><span class="line">public boolean add(E e) &#123;</span><br><span class="line">    ensureCapacityInternal(size + 1);  // 确定容量是否够，此时size=10</span><br><span class="line">    elementData[size++] = e; // 把数据添加到数组</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 2.确定所扩容量（即确定minCapacity：最小所需容量）</span><br><span class="line">private void ensureCapacityInternal(int minCapacity) &#123;</span><br><span class="line">        if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123; //elementData指向扩容后的数组，因此这里为false,即minCapacity=elementData.length+1</span><br><span class="line">            minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ensureExplicitCapacity(minCapacity);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 演示代码：基于第一次扩容演示代码</span><br><span class="line">for(int i=11;i&lt;=20;i++)&#123;</span><br><span class="line">    list.add(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 源码</span><br><span class="line">// 1.先确定容量是否足够，然后再把数据添加到数组</span><br><span class="line">public boolean add(E e) &#123;</span><br><span class="line">    ensureCapacityInternal(size + 1);  // 确定容量是否够，此时size=10</span><br><span class="line">    elementData[size++] = e; // 把数据添加到数组</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 2.确定所扩容量（即确定minCapacity：最小所需容量）</span><br><span class="line">private void ensureCapacityInternal(int minCapacity) &#123;</span><br><span class="line">        if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123; //elementData指向扩容后的数组，因此这里为false,即minCapacity=elementData.length+1</span><br><span class="line">            minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ensureExplicitCapacity(minCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
@@ -116,6 +116,83 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-面试题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/07/09/%E9%9D%A2%E8%AF%95%E9%A2%98/" class="article-date">
+  <time datetime="2022-07-09T12:28:21.000Z" itemprop="datePublished">2022-07-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/07/09/%E9%9D%A2%E8%AF%95%E9%A2%98/">java面试题（更新中）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-请你说一下final关键字"><a href="#1-请你说一下final关键字" class="headerlink" title="1. 请你说一下final关键字"></a>1. 请你说一下final关键字</h3><p>答：final关键字可以用来标志其修饰的<text style="color:purple">类，方法和变量</text>不可变。当final修饰类时，该类不能被继承，例如<text style="color:purple">java.lang.Math</text>类就是一个final类，它不能被继承。final修饰的方法不能被重写，如果出于某些原因你不希望子类重写父类的某个方法，就可以用final关键字修饰这个方法。当final用来修饰变量时，代表该变量不可被改变，一旦获得了初始值，该final变量的值就不能被重新赋值。</p>
+<h3 id="2-请你说说java基本数据类型和引用类型"><a href="#2-请你说说java基本数据类型和引用类型" class="headerlink" title="2. 请你说说java基本数据类型和引用类型"></a>2. 请你说说java基本数据类型和引用类型</h3><h5 id="（1）-基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）"><a href="#（1）-基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）" class="headerlink" title="（1） 基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）"></a>（1） 基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）</h5><table style="text-align:center">
+    <tr>
+        <th>数据类型</th>
+        <th>具体数据</th>
+        <th>内存空间</th>
+        <th>数据范围</th>
+    </tr>
+    <tr>
+        <td>整型类型</td>
+        <td>byte <br >short <br> int <br> long <br> </td>        
+        <td>1字节（8位）<br> 2字节（16位）<br> 4字节（32位）<br> 8字节（64位）</td>
+        <td>-128~127 <br> -2^15~2^15-1 <br> -2^31~2^31-1 <br> -2^63~2^63-1 </td>
+    </tr>
+    <tr>
+        <td>浮点类型</td>
+        <td>float <br> double </td>        
+        <td>4字节（32位）<br> 8字节（64位）</td>
+        <td>-3.4*10^38~3.4*10^38 <br> -1.8*10^308~1.8*10^308</td>
+    </tr>
+    <tr>
+        <td>字符类型</td>
+        <td>char</td>        
+        <td>2字节（16位）</td>
+        <td>\u0000~\uffff</td>
+    </tr>
+    <tr>
+        <td>布尔类型</td>
+        <td>boolean</td>        
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+
+<h5 id="2-引用类型"><a href="#2-引用类型" class="headerlink" title="(2) 引用类型"></a>(2) 引用类型</h5><p>引用类型包括数组、类、接口类型，还有一种特殊的null类型；所谓引用数据类型就是对一个对象的引用，对象包括实例和数组两种。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/07/09/%E9%9D%A2%E8%AF%95%E9%A2%98/" data-id="cl5hlcbqy0000h8uv5hvk5r9s" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
 
     </footer>
   </div>
@@ -356,6 +433,10 @@
           </li>
         
           <li>
+            <a href="/2022/07/09/%E9%9D%A2%E8%AF%95%E9%A2%98/">java面试题（更新中）</a>
+          </li>
+        
+          <li>
             <a href="/2022/07/04/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">git常用命令</a>
           </li>
         
@@ -376,7 +457,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -386,7 +467,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -396,7 +477,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 

@@ -142,7 +142,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2022/07/09/%E9%9D%A2%E8%AF%95%E9%A2%98/">java面试题（更新中）</a>
+      <a class="article-title" href="/2022/07/09/%E9%9D%A2%E8%AF%95%E9%A2%98/">基础（更新中）</a>
     </h1>
   
 
@@ -150,8 +150,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-请你说一下final关键字"><a href="#1-请你说一下final关键字" class="headerlink" title="1. 请你说一下final关键字"></a>1. 请你说一下final关键字</h3><p>答：final关键字可以用来标志其修饰的<text style="color:purple">类，方法和变量</text>不可变。当final修饰类时，该类不能被继承，例如<text style="color:purple">java.lang.Math</text>类就是一个final类，它不能被继承。final修饰的方法不能被重写，如果出于某些原因你不希望子类重写父类的某个方法，就可以用final关键字修饰这个方法。当final用来修饰变量时，代表该变量不可被改变，一旦获得了初始值，该final变量的值就不能被重新赋值。</p>
-<h3 id="2-请你说说java基本数据类型和引用类型"><a href="#2-请你说说java基本数据类型和引用类型" class="headerlink" title="2. 请你说说java基本数据类型和引用类型"></a>2. 请你说说java基本数据类型和引用类型</h3><h5 id="（1）-基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）"><a href="#（1）-基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）" class="headerlink" title="（1） 基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）"></a>（1） 基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）</h5><table style="text-align:center">
+        <h2 id="一、JavaEE"><a href="#一、JavaEE" class="headerlink" title="一、JavaEE"></a>一、JavaEE</h2><h3 id="1-final关键字"><a href="#1-final关键字" class="headerlink" title="1. final关键字"></a>1. final关键字</h3><p>答：final关键字可以用来标志其修饰的<text style="color:purple">类，方法和变量</text>不可变。当final修饰类时，该类不能被继承，例如<text style="color:purple">java.lang.Math</text>类就是一个final类，它不能被继承。final修饰的方法不能被重写，如果出于某些原因你不希望子类重写父类的某个方法，就可以用final关键字修饰这个方法。当final用来修饰变量时，代表该变量不可被改变，一旦获得了初始值，该final变量的值就不能被重新赋值。</p>
+<h3 id="2-java基本数据类型和引用类型"><a href="#2-java基本数据类型和引用类型" class="headerlink" title="2. java基本数据类型和引用类型"></a>2. java基本数据类型和引用类型</h3><h5 id="（1）-基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）"><a href="#（1）-基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）" class="headerlink" title="（1） 基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）"></a>（1） 基本数据类型（除了布尔类型，其他类型相互之间可以进行转换）</h5><table style="text-align:center">
     <tr>
         <th>数据类型</th>
         <th>具体数据</th>
@@ -185,7 +185,7 @@
 </table>
 
 <h5 id="2-引用类型"><a href="#2-引用类型" class="headerlink" title="(2) 引用类型"></a>(2) 引用类型</h5><p>引用类型包括数组、类、接口类型，还有一种特殊的null类型；所谓引用数据类型就是对一个对象的引用，对象包括实例和数组两种。</p>
-<h3 id="3-String、StringBuffer、StringBuilder有什么区别"><a href="#3-String、StringBuffer、StringBuilder有什么区别" class="headerlink" title="3. String、StringBuffer、StringBuilder有什么区别"></a>3. String、StringBuffer、StringBuilder有什么区别</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xzlf/p/12681547.html">介绍String、StringBuffer、StringBuilder区别的博客文章(十分详细)</a></p>
+<h3 id="3-String、StringBuffer、StringBuilder的区别"><a href="#3-String、StringBuffer、StringBuilder的区别" class="headerlink" title="3. String、StringBuffer、StringBuilder的区别"></a>3. String、StringBuffer、StringBuilder的区别</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xzlf/p/12681547.html">介绍String、StringBuffer、StringBuilder区别的博客文章(十分详细)</a></p>
 <table style="text-align:center">
     <tr>
         <th></th>
@@ -213,14 +213,14 @@
     </tr>
 </table>
 
+<h2 id="二、Mysql"><a href="#二、Mysql" class="headerlink" title="二、Mysql"></a>二、Mysql</h2><h3 id="1-简述索引；索引的好处与坏处；"><a href="#1-简述索引；索引的好处与坏处；" class="headerlink" title="1.简述索引；索引的好处与坏处；"></a>1.简述索引；索引的好处与坏处；</h3><p>索引就像指向表行的指针,是一种允许查询操作快速确定哪些行符合WHERE子句中的条件,并检索到这些行的其他列值的数据结构； 索引主要有普通索引、唯一索引、主键索引、外键索引、全文索引、复合索引几种；<br> 在大数据量的查询中,合理使用索引的优点非常明显,不仅能大幅提高匹配where条件的检索效率,还能用于排序和分组操作的加速。 当时索引如果使用不当也有比较大的坏处：比如索引必定会增加存储资源的消耗；同时也增大了插入、更新和删除操作的维护成本,因为每个增删改操作后相应列的索引都必须被更新。 加分回答 只要创建了索引,就一定会走索引吗？ 不一定。 比如,在使用组合索引的时候,如果没有遵从“最左前缀”的原则进行搜索,则索引是不起作用的。 举例,假设在id、name、age字段上已经成功建立了一个名为MultiIdx的组合索引。索引行中按id、name、age的顺序存放,索引可以搜索id、（id,name）、（id, name, age）字段组合。如果列不构成索引最左面的前缀,那么MySQL不能使用局部索引,如（age）或者（name,age）组合则不能使用该索引查询。</p>
+
       
     </div>
     <footer class="article-footer">
       <a data-url="http://example.com/2022/07/09/%E9%9D%A2%E8%AF%95%E9%A2%98/" data-id="cl5hlcbqy0000h8uv5hvk5r9s" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a></li></ul>
-
     </footer>
   </div>
   
@@ -585,7 +585,7 @@
           </li>
         
           <li>
-            <a href="/2022/07/09/%E9%9D%A2%E8%AF%95%E9%A2%98/">java面试题（更新中）</a>
+            <a href="/2022/07/09/%E9%9D%A2%E8%AF%95%E9%A2%98/">基础（更新中）</a>
           </li>
         
           <li>
@@ -619,7 +619,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag">面试题</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -642,7 +642,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2022-7-14 莫日金<br>
+      &copy; 2022-7-19 莫日金<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>

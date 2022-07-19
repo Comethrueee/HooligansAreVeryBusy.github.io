@@ -433,8 +433,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-集合框架图"><a href="#1-集合框架图" class="headerlink" title="1. 集合框架图"></a>1. 集合框架图</h3><p><img src="/static/collection.png" alt="图片"></p>
-<p><img src="/static/map.png" alt="图片"></p>
+        <h3 id="1-集合框架图"><a href="#1-集合框架图" class="headerlink" title="1. 集合框架图"></a>1. 集合框架图</h3><p><img src="/../static/collection.png" alt="图片"></p>
+<p><img src="/../static/map.png" alt="图片"></p>
 <hr>
 <h3 id="2-Collection特点"><a href="#2-Collection特点" class="headerlink" title="2. Collection特点"></a>2. Collection特点</h3><p>(1) Collection实现子类可以存放多个元素，每个元素可以是Object<br>(2) 有序：List  无序：Set<br>(3) 可重复：List  不可重复：Set</p>
 <h3 id="3-Collection常用方法"><a href="#3-Collection常用方法" class="headerlink" title="3. Collection常用方法"></a>3. Collection常用方法</h3><p>(1)add：添加单个元素<br>(2)addAll：添加多个元素	<br>(3)remove：删除指定元素<br>(4)removeAll：删除多个元素<br>(5)contains：查找元素是否存在<br>(6)containsAll：查找多个元素是否都存在<br>(7)size：获取元素个数<br>(8)isEmpty：判断是否为空<br>(9)clear：清空</p>
@@ -568,6 +568,64 @@
 
 
   
+    <article id="post-多线程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/01/01/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="article-date">
+  <time datetime="2021-12-31T16:00:00.000Z" itemprop="datePublished">2022-01-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/01/01/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h3><p>· 程序：程序是指令和数据的有序集合，其本身没有任何运行的含义，是一个静态的概念。<br>· 进程：是执行程序的一次执行过程，它是一个动态的概念，是系统资源分配的单位。<br>· 线程：通常在一个进程中可以包含若干个线程，一个进程中至少有一个线程，不然没有存在的意义。线程是CPU调度和执行的单位。</p>
+<p><img src="/../static/Thread/1.jpg" alt="图片"></p>
+<hr>
+<h3 id="2-线程创建"><a href="#2-线程创建" class="headerlink" title="2. 线程创建"></a>2. 线程创建</h3><p>· Thread<br>· Runnable<br>· Callable</p>
+<p><text style="color:purple">线程开启不一定立即执行，由cpu调度</text></p>
+<h5 id="1-继承Thread类"><a href="#1-继承Thread类" class="headerlink" title="(1) 继承Thread类"></a>(1) 继承Thread类</h5><p>· 自定义线程类继承Thread类<br>· 重写run()方法，编写线程执行体<br>· 创建线程对象，调用start()方法启动线程</p>
+<p><text style="color:purple">总结：不推荐使用，避免OOP单继承局限性</text></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class TestThread1 extends Thread&#123;</span><br><span class="line"></span><br><span class="line">    //重写run方法</span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        for (int i = 0; i &lt; 100; i++) &#123;</span><br><span class="line">            System.out.println(&quot;我在看手机&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //main线程，主线程</span><br><span class="line">        //创建一个线程对象</span><br><span class="line">        TestThread1 testThread1 = new TestThread1();</span><br><span class="line">        //调用start()方法开启线程</span><br><span class="line">        testThread1.start();</span><br><span class="line">        for (int i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">            System.out.println(&quot;我在吃饭&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-实现Runnable接口"><a href="#2-实现Runnable接口" class="headerlink" title="(2) 实现Runnable接口"></a>(2) 实现Runnable接口</h5><p>· 定义MyRunnable实现Runnable接口<br>· 重写run()方法，编写线程执行体<br>· 创建线程对象，调用start()方法启动线程</p>
+<p><text style="color:purple">总结：推荐使用，避免单继承局限性，灵活方便，方便同一个对象被多个线程使用</text></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class TestThread2 implements Runnable&#123;</span><br><span class="line"></span><br><span class="line">    public void run() &#123;</span><br><span class="line">        for (int i = 0; i &lt; 100; i++) &#123;</span><br><span class="line">            System.out.println(&quot;我在看手机&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //创建runnable接口的实现类对象</span><br><span class="line">        TestThread2 testThread2 = new TestThread2();</span><br><span class="line">        //创建线程对象，通过线程对象来开启我们的线程，代理</span><br><span class="line">        new Thread(testThread2).start();</span><br><span class="line"></span><br><span class="line">        for (int i = 0; i &lt; 1000; i++) &#123;</span><br><span class="line">            System.out.println(&quot;我在吃饭&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-实现Callable接口"><a href="#3-实现Callable接口" class="headerlink" title="(3) 实现Callable接口"></a>(3) 实现Callable接口</h5><p>· 实现Callable接口，需要返回值类型<br>· 重写call方法，需要抛出异常<br>· 创建目标对象<br>· 创建执行服务：ExecutorService ser &#x3D; Executors.newFixedThreadPool(1);<br>· 提交执行：Future<Boolean> result1 &#x3D; ser.submit(t1)<br>· 获取结果：boolean r1 &#x3D; result1.get()<br>· 关闭服务：ser.shutdownNow()</p>
+<hr>
+<h3 id="线程停止"><a href="#线程停止" class="headerlink" title="线程停止"></a>线程停止</h3><p>停止一个线程可以用Thread.stop(),但最好不要用它。虽然它确实可以停止一个正在运行的线程，但是这个方法是不安全的，而且已经作废的方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/01/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" data-id="cl5se9fnv0000k4uv6sam22qb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
 
 
 </section>
@@ -609,7 +667,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">6</span></li></ul>
     </div>
   </div>
 
@@ -619,7 +677,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag">多线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9B%86%E5%90%88/" rel="tag">集合</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -629,7 +687,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/06/">六月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">一月 2022</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -642,7 +700,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2022-7-19 莫日金<br>
+      &copy; 2022-7-20 莫日金<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
